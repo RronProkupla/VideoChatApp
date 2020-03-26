@@ -7,3 +7,33 @@ video{
     height: 300px;
     width: 400px;
 }
+
+.main_chat{
+    background-color:rgba(255, 38, 38, 0.911);
+    min-height: 100%;
+}
+
+.main_video{
+    background-color:rgba(243, 255, 72, 0.781);
+    min-height: 90%;
+}
+
+.main_buttons{
+    background-color:rgba(34, 142, 243, 0.781);
+    min-height: 10%;
+}
+
+.container-height{
+    max-height: 100%;
+}
+
+#container{
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    width: 100%;
+}
+
+.row-height{
+    min-height: 100%;
+}
