@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/RronProkupla/VideoApp#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "ejs": "^3.1.3",
     "express": "^4.17.1",
     "peer": "^0.5.3",

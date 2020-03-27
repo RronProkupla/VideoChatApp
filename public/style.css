@@ -9,31 +9,144 @@ video{
 }
 
 .main_chat{
-    background-color:rgba(255, 38, 38, 0.911);
-    min-height: 100%;
+    position: absolute;
+    height: 100%;
+    width: 30%; 
+    margin: 0px;
+    padding: 0px;
+    background-color:rgba(49, 49, 49, 0.993);
+    border: white 1px solid;
 }
 
 .main_video{
-    background-color:rgba(243, 255, 72, 0.781);
-    min-height: 90%;
+    position: absolute;
+    left:30%;
+    height: 90%;
+    width: 70%;
 }
 
 .main_buttons{
-    background-color:rgba(34, 142, 243, 0.781);
+    position: absolute;
+    left:30%;
+    top:90%;
+    height: 10%;
+    width: 70%;
+    background-color:rgba(49, 49, 49, 0.993);
     min-height: 10%;
+    border: white 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.container-height{
-    max-height: 100%;
-}
 
 #container{
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;   
 }
 
-.row-height{
-    min-height: 100%;
+.camera{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+    border: 1px solid black;
+    margin-right: 2%;
+    width: 60px;
+    height: 60px;
+   
+}
+
+.microphone{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;    
+    border: 1px solid black;
+    margin-right: 2%;
+    width: 60px;
+    height: 60px;
+}
+
+.leave{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+    border: 1px solid black; 
+    width: 60px;
+    height: 60px;
+}
+
+.camera:hover{
+	border-color: white;
+	border-width:4px 3px 3px 4px;
+    color:#000;
+}
+
+.microphone:hover{
+	border-color: white;
+	border-width:4px 3px 3px 4px;
+	color:#000;
+}
+
+.leave:hover{
+	border-color: white;
+	border-width:4px 3px 3px 4px;
+	color:#000;
+}
+
+#video-grid{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+}
+
+.buttonwraper{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height: 60%;
+}
+
+.send-input{
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+}
+
+#messageinput{
+    width: 96%;
+    margin-left: 2%;
+    margin-bottom: 2%;
+}
+
+#sendButton{
+    border-radius: 30%;
+    padding: 2%;
+}
+
+.singleMessage{
+    color: white;
+    list-style-type: none;
+    background-color: rgb(30, 110, 238);
+    padding: 2%;
+    border-radius: 20px;
+    margin: 2%;
+    word-wrap:break-word;
+}
+
+.messages{
+    padding: 0;
+    overflow-y:scroll ;
+    max-height: 95%;
+}
+
+ul:last-child{
+    margin-bottom: 5px;;
 }
