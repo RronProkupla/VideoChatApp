@@ -13,8 +13,8 @@ var peer = new Peer(undefined, {
 
 let videoStream
 navigator.mediaDevices.getUserMedia({
-    video: false,
-    audio:false
+    video: true,
+    audio:true
 }).then(stream => {
     videoStream = stream
     addVideoStream(newVideo,stream)
@@ -31,6 +31,8 @@ navigator.mediaDevices.getUserMedia({
         connectToNewUser(userId,stream);
     })
 
+ 
+    
     
 })
 
@@ -60,26 +62,11 @@ const addVideoStream = (video,stream) => {
     videoGrid.append(video)
 }
 
-const cameraToggle = () => {
-    document.querySelector('.camera').innerHTML = "hello"
-}
-
-const micToggle = () => {
-    const on  = '<i class="fa fa-microphone fa-2x" style="color: white;" aria-hidden="true"></i>'
-    const off = '<i class="fa fa-microphone-slash fa-2x" style="color: white;" aria-hidden="true"></i>'
-    if(document.querySelector('.microphone').innerHTML == on){
-        document.querySelector('.microphone').innerHTML = off
-    }else{
-        document.querySelector('.microphone').innerHTML = on
-    }
-    
-}
 
 let input = document.querySelector('#messageinput')
 
 input.addEventListener('keydown', (e) => {
     if(e.keyCode == 13 && input.value != 0 ){
-        console.log(input.value)
         socket.emit('message', input.value)
         input.value = ''
     }
@@ -93,12 +80,30 @@ socket.on('deliverMessage', (message,userId) => {
 const createSingleMessage = (message,userId) => {
     let li = document.createElement('li')
     li.setAttribute("class", "singleMessage")
-    li.textContent = `${userId}  ${message}`
+    li.textContent = `${userId} : ${message}`
     return li
 }
 
+const muteMic = () => {
+    const on  = '<i class="fa fa-microphone fa-2x" style="color: white;" aria-hidden="true"></i>'
+    const off = '<i class="fa fa-microphone-slash fa-2x" style="color: white;" aria-hidden="true"></i>'
+    const micOn = videoStream.getAudioTracks()[0].enabled
+    if(micOn){
+        videoStream.getAudioTracks()[0].enabled = false
+        document.querySelector('.microphone').innerHTML = off
 
+    }else{
+        videoStream.getAudioTracks()[0].enabled = true
+        document.querySelector('.microphone').innerHTML = on
+    }
+}
 
-const scrolldiv = document.querySelector('.messages')
+const cameraToggle = () => {
+    const camOn = videoStream.getVideoTracks()[0].enabled
+    if(camOn){
+        videoStream.getVideoTracks()[0].enabled = false   
 
-scrolldiv.scrollTop = scrolldiv.scrollHeight
+    }else{
+        videoStream.getVideoTracks()[0].enabled = true
+    }
+}
