@@ -4,7 +4,8 @@ const socket = io('/')
 const videoGrid = document.getElementById('video-grid')
 const newVideo = document.createElement('video')
 newVideo.muted = true
- 
+
+const peers = {}
 var peer = new Peer(undefined, {
     path: '/peerjs',
     host: '/',
@@ -14,7 +15,7 @@ var peer = new Peer(undefined, {
 let videoStream
 navigator.mediaDevices.getUserMedia({
     video: true,
-    audio:true
+    audio:false
 }).then(stream => {
     videoStream = stream
     addVideoStream(newVideo,stream)
@@ -25,6 +26,8 @@ navigator.mediaDevices.getUserMedia({
         call.on('stream', userVideoStream => {
             addVideoStream(video,userVideoStream)
         })
+
+        
     })
 
     socket.on('user-connected', (userId) => {
@@ -40,6 +43,10 @@ peer.on('open', id => {
     socket.emit('join-room', roomId, id)
 })
 
+socket.on('user-disconnected', userId => {
+    if (peers[userId]) peers[userId].close()
+  })
+
 
 
 const connectToNewUser = (userId,stream) => {
@@ -48,6 +55,11 @@ const connectToNewUser = (userId,stream) => {
     call.on('stream' , userVideoStream => {
         addVideoStream(video, userVideoStream)
     })
+    call.on('close', () => {
+        video.remove()
+      })
+
+    peers[userId] = call
 }
 
 
@@ -77,6 +89,9 @@ socket.on('deliverMessage', (message,userId) => {
     document.querySelector('.messages').appendChild(createSingleMessage(message,userId))
 })
 
+
+
+
 const createSingleMessage = (message,userId) => {
     let li = document.createElement('li')
     li.setAttribute("class", "singleMessage")
@@ -101,7 +116,7 @@ const muteMic = () => {
 const cameraToggle = () => {
     const camOn = videoStream.getVideoTracks()[0].enabled
     if(camOn){
-        videoStream.getVideoTracks()[0].enabled = false   
+        videoStream.getVideoTracks()[0].enabled = false  
 
     }else{
         videoStream.getVideoTracks()[0].enabled = true

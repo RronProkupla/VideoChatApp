@@ -32,7 +32,20 @@ io.on('connection', socket => {
         socket.on('message' , (message) => {
             io.to(roomId).emit('deliverMessage', message,userId)
         })
+
+        socket.on('disconnect' , (roomId,userId) => {
+            io.to(roomId).emit('disconnectMsg', userId)
+        
+        })
+
+        socket.on('disconnect', () => {
+            socket.to(roomId).broadcast.emit('user-disconnected', userId)
+          }) 
     })
+
+      
+
+    
 
 })
 
