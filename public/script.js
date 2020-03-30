@@ -15,7 +15,7 @@ var peer = new Peer(undefined, {
 let videoStream
 navigator.mediaDevices.getUserMedia({
     video: true,
-    audio:false
+    audio:true
 }).then(stream => {
     videoStream = stream
     addVideoStream(newVideo,stream)
